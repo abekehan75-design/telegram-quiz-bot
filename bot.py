@@ -6,6 +6,7 @@ Telegram бот - финальная рабочая версия с кнопка
 
 import os
 import re
+import asyncio
 from io import BytesIO
 from docx import Document
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
@@ -300,6 +301,12 @@ def main():
 
     print("✅ Бот запущен!")
     print("📱 Отправь /start боту")
+
+    # Для Python 3.10+ создаём event loop явно
+    try:
+        asyncio.get_running_loop()
+    except RuntimeError:
+        asyncio.set_event_loop(asyncio.new_event_loop())
 
     app.run_polling(allowed_updates=Update.ALL_TYPES, drop_pending_updates=True)
 
